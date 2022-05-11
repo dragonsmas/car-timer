@@ -4,6 +4,7 @@ var height = 60;
 var finishLine = -3500;
 var num_random;
 var tt = 0
+var score, score1
 
 function preload(){
   // backgroundImage = loadImage("assets\background.png")
@@ -26,6 +27,21 @@ function setup(){
   num_random = Math.floor(random(800,805));
   console.log(num_random);
 
+  num_random -= 1;
+  if(num_random <= 0){
+    gameOver();
+  }
+  if(num_random =>0 && car.position.y == height * 6 - 100){
+    gameWon();
+  }
+
+
+  score = createElement("h2");
+  score.html(num_random);
+
+  score1 = createElement("h2");
+  score1.html("Time:");
+  
 }
 
 function draw(){
@@ -33,10 +49,10 @@ function draw(){
   //background(trackImg)
   if(keyDown("up_arrow")){
     car.position.y = car.position.y - 5;
-    //time = time - 1
-    tt = tt + 0.5
-    //console.log(tt);
+   num_random -= 1;
   }
+
+
   if(keyDown("right_arrow") && car.position.x < 1240 / 2 + 250){
     car.position.x = car.position.x + 3;
   }
@@ -58,26 +74,26 @@ function draw(){
 
   //showRank();
 
+  
+
+
   drawSprites();
 
 
   //console.log(windowWidth);
   //console.log(windowHeight);
 
+  score.position(300,0);
+  score1.position(225,0)
 
 
-
-  num_random -= 0.5;
-  if(num_random <= 0){
-    gameOver();
-  }
-  if(num_random > 0 && car.position.y == height * 6 - 100){
-    gameWon();
-  }
-
+  
   //console.log(car.position.y);
 
 }
+
+
+
 
 
 function windowResized() {
